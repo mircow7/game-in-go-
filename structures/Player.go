@@ -8,7 +8,10 @@ type Personne struct {
 	Niveau             int
 	PointsDeVieMaximum int
 	PointsDeVieActuels int
-	Inventaire         []string
+	Age:    		   int
+	Argent: 		   int
+	Items  map[string]int
+	
 }
 
 func InitCharacter(nom string, classe string, niveau int, pvMax int, pvActuels int, inventaire []string) Personne {
@@ -18,7 +21,9 @@ func InitCharacter(nom string, classe string, niveau int, pvMax int, pvActuels i
 		Niveau:             niveau,
 		PointsDeVieMaximum: pvMax,
 		PointsDeVieActuels: pvActuels,
-		Inventaire:         inventaire,
+		Age:    20,
+		Argent: 1000,
+		Items:  map[string]int{},
 	}
 }
 

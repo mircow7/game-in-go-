@@ -15,8 +15,6 @@ func lireCombat() string {
 	return strings.TrimSpace(texte)
 }
 
-// TACHE 21 : tour de jeu du personnage
-// Retourne true si le combat continue, false si le monstre est mort
 func CharacterTurn(p *Personne, m *Monster) bool {
 	fmt.Println("\n--- Ton tour ---")
 	fmt.Println("1. Attaquer")
@@ -44,7 +42,6 @@ func CharacterTurn(p *Personne, m *Monster) bool {
 	return !m.EstMort()
 }
 
-// TACHE 21 suite : utiliser un objet de l'inventaire pendant le combat
 func AccessInventoryCombat(p *Personne) {
 	p.AccessInventory()
 	fmt.Println("\nTape le numéro d'un objet pour l'utiliser, ou 0 pour ne rien faire.")
@@ -74,7 +71,6 @@ func AccessInventoryCombat(p *Personne) {
 	}
 }
 
-// TACHE 22.1 + 22.2 : combat d'entrainement tour par tour complet
 func TrainingFight(p *Personne) {
 	gobelin := InitGoblin()
 	tour := 1
@@ -102,4 +98,3 @@ func TrainingFight(p *Personne) {
 
 	fmt.Println("\n===== FIN DU COMBAT =====")
 }
-
