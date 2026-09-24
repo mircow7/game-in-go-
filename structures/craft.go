@@ -17,31 +17,36 @@ type Recette struct {
 
 var Recettes = map[string]Recette{
 	"Chapeau de l'aventurier": {
-		NomObjet: "Chapeau de l'aventurier",
-		Prix:     5,
-		Section:  "tete",
-		Ingredients: []Ingredient{
-			{"Plume de Corbeau", 1},
-			{"Cuir de Sanglier", 1},
-		},
+		NomObjet: "Chapeau de l'aventurier", Prix: 5, Section: "tete",
+		Ingredients: []Ingredient{{"Plume de Corbeau", 1}, {"Cuir de Sanglier", 1}},
 	},
 	"Tunique de l'aventurier": {
-		NomObjet: "Tunique de l'aventurier",
-		Prix:     5,
-		Section:  "torse",
-		Ingredients: []Ingredient{
-			{"Fourrure de Loup", 2},
-			{"Peau de Troll", 1},
-		},
+		NomObjet: "Tunique de l'aventurier", Prix: 5, Section: "torse",
+		Ingredients: []Ingredient{{"Fourrure de Loup", 2}, {"Peau de Troll", 1}},
 	},
 	"Bottes de l'aventurier": {
-		NomObjet: "Bottes de l'aventurier",
-		Prix:     5,
-		Section:  "pieds",
-		Ingredients: []Ingredient{
-			{"Fourrure de Loup", 1},
-			{"Cuir de Sanglier", 1},
-		},
+		NomObjet: "Bottes de l'aventurier", Prix: 5, Section: "pieds",
+		Ingredients: []Ingredient{{"Fourrure de Loup", 1}, {"Cuir de Sanglier", 1}},
+	},
+	"Dague rouillée": {
+		NomObjet: "Dague rouillée", Prix: 8, Section: "arme",
+		Ingredients: []Ingredient{{"Cuir de Sanglier", 1}, {"Fer", 2}},
+	},
+	"Épée d'acier": {
+		NomObjet: "Épée d'acier", Prix: 20, Section: "arme",
+		Ingredients: []Ingredient{{"Fer", 3}, {"Peau de Troll", 1}},
+	},
+	"Arc du chasseur": {
+		NomObjet: "Arc du chasseur", Prix: 14, Section: "arme",
+		Ingredients: []Ingredient{{"Bois", 2}, {"Cuir de Sanglier", 2}},
+	},
+	"Potion supérieure": {
+		NomObjet: "Potion supérieure", Prix: 12, Section: "objet",
+		Ingredients: []Ingredient{{"Herbe médicinale", 2}, {"Fourrure de Loup", 1}},
+	},
+	"Elixir de mana": {
+		NomObjet: "Elixir de mana", Prix: 12, Section: "objet",
+		Ingredients: []Ingredient{{"Herbe médicinale", 2}, {"Plume de Corbeau", 1}},
 	},
 }
 

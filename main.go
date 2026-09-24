@@ -1,33 +1,33 @@
 package main
- 
+
 import (
 	"bufio"
 	"fmt"
 	"os"
 	"strconv"
 	"strings"
- 
+
 	"game-in-go/structures"
 )
- 
+
 var lecteur = bufio.NewReader(os.Stdin)
- 
+
 // Lit une ligne tapée par le joueur et enlève le retour à la ligne
 func lire() string {
 	texte, _ := lecteur.ReadString('\n')
 	return strings.TrimSpace(texte)
 }
- 
+
 func main() {
 	var c1 structures.Personne
- 
+
 	// BONUS : proposer de charger une sauvegarde existante
 	if structures.SauvegardeExiste() {
 		fmt.Println("Une sauvegarde a été trouvée.")
 		fmt.Println("1. Charger la partie sauvegardée")
 		fmt.Println("2. Commencer une nouvelle partie")
 		fmt.Print("Ton choix : ")
- 
+
 		if lire() == "1" {
 			perso, ok := structures.Charger()
 			if ok {
@@ -44,7 +44,7 @@ func main() {
 		// TACHE 11 : le joueur crée lui-même son personnage
 		c1 = structures.CharacterCreation()
 	}
- 
+
 	// TACHE 6 : menu principal
 	// TACHE 15 : + Forgeron   TACHE 22 : + Entrainement   BONUS : + Vendre, Sauvegarder
 	for {
@@ -60,7 +60,7 @@ func main() {
 		fmt.Println("9. Sauvegarder la partie")
 		fmt.Println("10. Quitter")
 		fmt.Print("Ton choix : ")
- 
+
 		switch lire() {
 		case "1":
 			c1.DisplayInfo()
@@ -92,29 +92,29 @@ func main() {
 		}
 	}
 }
- 
+
 // BONUS : revendre un objet de l'inventaire
 func menuVente(p *structures.Personne) {
 	for {
 		p.AccessInventory()
 		fmt.Println("\nTape le numéro d'un objet à vendre, ou 0 pour revenir.")
 		fmt.Print("Ton choix : ")
- 
+
 		choix := lire()
 		if choix == "0" {
 			return
 		}
- 
+
 		index, err := strconv.Atoi(choix)
 		if err != nil || index < 1 || index > len(p.Inventaire) {
 			fmt.Println("Choix invalide.")
 			continue
 		}
- 
+
 		p.VendreObjet(p.Inventaire[index-1])
 	}
 }
- 
+
 // TACHE 4 + 5 : afficher l'inventaire et utiliser un objet
 func menuInventaire(p *structures.Personne) {
 	for {
@@ -122,17 +122,17 @@ func menuInventaire(p *structures.Personne) {
 		fmt.Println("\nTape le numéro d'un objet pour l'utiliser, ou 0 pour revenir.")
 		fmt.Print("Ton choix : ")
 		choix := lire()
- 
+
 		if choix == "0" {
 			return
 		}
- 
+
 		index, err := strconv.Atoi(choix)
 		if err != nil || index < 1 || index > len(p.Inventaire) {
 			fmt.Println("Choix invalide.")
 			continue
 		}
- 
+
 		item := p.Inventaire[index-1]
 		switch item {
 		case "Potion de vie":
@@ -154,13 +154,13 @@ func menuInventaire(p *structures.Personne) {
 		}
 	}
 }
- 
+
 // TACHE 7 + 9 + 14 : interface du marchand avec prix en pièces d'or
 type ArticleMarchand struct {
 	Nom  string
 	Prix int
 }
- 
+
 var articlesMarchand = []ArticleMarchand{
 	{"Potion de vie", 3},
 	{"Potion de poison", 6},
@@ -172,7 +172,7 @@ var articlesMarchand = []ArticleMarchand{
 	{"Plume de Corbeau", 1},
 	{"Augmentation d'inventaire", 30},
 }
- 
+
 func menuMarchand(p *structures.Personne) {
 	for {
 		fmt.Println("\n===== MARCHAND =====")
@@ -182,42 +182,42 @@ func menuMarchand(p *structures.Personne) {
 		fmt.Println("0. Retour")
 		fmt.Printf("Ton or : %d\n", p.Argent)
 		fmt.Print("Ton choix : ")
- 
+
 		choix := lire()
 		if choix == "0" {
 			return
 		}
- 
+
 		index, err := strconv.Atoi(choix)
 		if err != nil || index < 1 || index > len(articlesMarchand) {
 			fmt.Println("Choix invalide.")
 			continue
 		}
- 
+
 		article := articlesMarchand[index-1]
- 
+
 		if p.Argent < article.Prix {
 			fmt.Println("Tu n'as pas assez d'or pour acheter :", article.Nom)
 			continue
 		}
- 
+
 		// TACHE 18 : cas particulier, ce n'est pas un objet d'inventaire
 		if article.Nom == "Augmentation d'inventaire" {
 			p.Argent -= article.Prix
 			p.UpgradeInventorySlot()
 			continue
 		}
- 
+
 		if p.InventairePlein() {
 			fmt.Println("Ton inventaire est plein.")
 			continue
 		}
- 
+
 		p.Argent -= article.Prix
 		p.AddInventory(article.Nom)
 	}
 }
- 
+
 // TACHE 15 : interface du forgeron
 func menuForgeron(p *structures.Personne) {
 	objets := []string{
@@ -225,7 +225,7 @@ func menuForgeron(p *structures.Personne) {
 		"Tunique de l'aventurier",
 		"Bottes de l'aventurier",
 	}
- 
+
 	for {
 		fmt.Println("\n===== FORGERON =====")
 		for i, nom := range objets {
@@ -234,19 +234,18 @@ func menuForgeron(p *structures.Personne) {
 		}
 		fmt.Println("0. Retour")
 		fmt.Print("Ton choix : ")
- 
+
 		choix := lire()
 		if choix == "0" {
 			return
 		}
- 
+
 		index, err := strconv.Atoi(choix)
 		if err != nil || index < 1 || index > len(objets) {
 			fmt.Println("Choix invalide.")
 			continue
 		}
- 
+
 		p.Fabriquer(objets[index-1])
 	}
 }
- 
