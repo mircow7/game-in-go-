@@ -110,14 +110,14 @@ func AccessInventoryCombat(p *Personne, m *Monster) {
 		fmt.Println("Vous utilisez Potion de mana")
 		p.TakeManaPot()
 	case "AK-47":
-		utiliserAK47(p, m)
+		UtiliserAK47(p, m)
 	default:
 		fmt.Println("Cet objet ne s'utilise pas en combat.")
 	}
 }
  
 // BONUS : arme trouvée sur un Troll, clairement pas d'époque, dégâts énormes, usage unique
-func utiliserAK47(p *Personne, m *Monster) {
+func UtiliserAK47(p *Personne, m *Monster) {
 	if !p.RemoveInventory("AK-47") {
 		return
 	}
@@ -142,6 +142,7 @@ func DeroulerCombat(p *Personne, monstre Monster) bool {
 	tour := 1
  
 	fmt.Println("\n===== DEBUT DU COMBAT =====")
+	fmt.Println(ObtenirArtMonstre(monstre.Nom))
 	fmt.Println("Un", monstre.Nom, "apparait !")
  
 	// MISSION 1 : qui commence le combat ?
@@ -159,14 +160,16 @@ func DeroulerCombat(p *Personne, monstre Monster) bool {
 			if !CharacterTurn(p, &monstre) {
 				break
 			}
-			attaqueMonstre(&monstre, p, tour)
+			AttaqueMonstre(&monstre, p, tour)
 			if p.IsDead() {
+				AfficherDefaite()
 				fmt.Println("Le combat s'arrête ici.")
 				return false
 			}
 		} else {
-			attaqueMonstre(&monstre, p, tour)
+			AttaqueMonstre(&monstre, p, tour)
 			if p.IsDead() {
+				AfficherDefaite()
 				fmt.Println("Le combat s'arrête ici.")
 				return false
 			}
@@ -179,6 +182,7 @@ func DeroulerCombat(p *Personne, monstre Monster) bool {
 	}
  
 	fmt.Println("\n", monstre.Nom, "est vaincu !")
+	AfficherVictoire()
  
 	// MISSION 2 : récompense d'expérience
 	p.GainExperience(monstre.ExperienceOffert)
@@ -198,7 +202,7 @@ func DeroulerCombat(p *Personne, monstre Monster) bool {
 }
  
 // BONUS : coup critique possible côté monstre, en plus du pattern habituel
-func attaqueMonstre(m *Monster, p *Personne, tour int) {
+func AttaqueMonstre(m *Monster, p *Personne, tour int) {
 	if EstCoupCritique() {
 		fmt.Println("***", m.Nom, "place un coup critique ! ***")
 		degatsNormaux := m.PointsAttaque
